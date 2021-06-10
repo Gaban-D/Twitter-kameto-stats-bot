@@ -1,12 +1,12 @@
 from config import get_twitter_api
 from datetime import datetime, timedelta
 from config import get_twitch_api
-from Streams import Streams
+from streams import Streams
 
 twitter_api = get_twitter_api()
 twitch_api = get_twitch_api()
 
-date_to_check = datetime.now() - timedelta(days=5)
+date_to_check = datetime.now() - timedelta(days=1)
 streamer_id = twitch_api.get_users(logins=['kamet0'])['data'][0]['id']
 
 
@@ -18,7 +18,7 @@ def get_most_viewed_clip(broadcaster_id=streamer_id, start_date=date_to_check, e
 	return twitch_api.get_clips(broadcaster_id=broadcaster_id, first=1, started_at=start_date, ended_at=end_date)['data'][0]
 
 
-videos = twitch_api.get_videos(user_id=streamer_id, first=5)['data']
+videos = twitch_api.get_videos(user_id=streamer_id, first=10)['data']
 streams = Streams()
 
 # calculate the total view count and store streams durations in a list
@@ -43,13 +43,15 @@ if streams.view_count == 0:
 	tweet = twitter_api.update_status('Le {date} Kameto était en day off'.format(date=date_to_check.strftime('%d/%m/%Y')))
 
 else:
-	tweet = twitter_api.update_status('Stats de Kameto le {date} :'
-							  '\n⏰ Durée totale des streams : {stream_duration}'
-							  '\n👀 Total de vues : {view_count}'
-							  '\n🎬 Clip le plus populaire du jour : {clip_url}'
-							  .format(date=date_to_check.strftime('%d/%m/%Y'),
-									  stream_duration=streams.calculate_total_streams_duration(),
-									  view_count=streams.view_count,
-									  clip_url=get_most_viewed_clip()['url']))
+	tweet = twitter_api.update_status(
+		'Stats de Kameto le {date} :'
+		'\n⏰ Durée totale des streams : {stream_duration}'
+		'\n👀 Total de vues : {view_count}'
+		'\n🎬 Clip le plus populaire du jour : {clip_url}'
+		.format(
+			date=date_to_check.strftime('%d/%m/%Y'),
+			stream_duration=streams.calculate_total_streams_duration(),
+			view_count=streams.view_count,
+			clip_url=get_most_viewed_clip()['url']))
 
 	print("Tweet successfully posted at " + tweet.entities['urls'][0]['expanded_url'])
