@@ -11,7 +11,7 @@ date = datetime.now().date()
 try:
     live = twitchAPI.get_streams(user_login=['kamet0'], first=1)['data'][0]
 except:
-    print("Kameto is not in live")
+    print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + "Kameto is not in live")
     saved_variables.close()
     quit()
 

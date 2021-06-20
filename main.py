@@ -51,8 +51,8 @@ try:
 except:
 	print("Error: Couldn't get the saved variables")
 	# HACK dirty way to ensure the script will be executed even if the saved variable couldn't be loaded correctly
-	viewer_peak = 0
-	played_games_string = ""
+	viewer_peak = "Inconnu"
+	played_games_string = "Inconnu"
 
 if streams.view_count == 0:
 	print("No video were found")
