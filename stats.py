@@ -1,8 +1,10 @@
 from datetime import timedelta
 
 
-class Streams:
+class Stats:
     streams_durations_array = []
+    games_played = []
+    viewer_peak = 0
     view_count = 0
     total_duration = ""
 
