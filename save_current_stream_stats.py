@@ -12,7 +12,7 @@ live = None
 try:
     live = twitchAPI.get_streams(user_login=['kamet0'], first=1)['data'][0]
 except IndexError:
-    print("{date} Kameto is not in live \n".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+    print("{date} - Kameto is not in live \n".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
     saved_variables.close()
     quit()
 
@@ -35,8 +35,8 @@ except KeyError:
     saved_variables["{date} games played".format(date=date)] += [live['game_name']]
 
 # Used for crontab logging
-print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + ": Current viewers " + str(live['viewer_count']))
-print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + ": Today viewer peak " + str(saved_variables["{date} viewer peak".format(date=date)]))
-print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + ": Today games played " + str(saved_variables["{date} games played".format(date=date)]) + "\n")
+print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " - Current viewers " + str(live['viewer_count']))
+print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " - Today viewer peak " + str(saved_variables["{date} viewer peak".format(date=date)]))
+print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " - Today games played " + str(saved_variables["{date} games played".format(date=date)]) + "\n")
 
 saved_variables.close()

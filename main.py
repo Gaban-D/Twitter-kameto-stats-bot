@@ -53,8 +53,8 @@ try:
 	saved_variables.close()
 
 except KeyError:
-	print("{date} Error: Couldn't get the saved variables".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
-	# HACK dirty way to ensure the script will be executed even if the saved variable couldn't be loaded correctly
+	print("{date} - Error: Couldn't get the saved variables".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+	# HACK dirty way to ensure the script will be executed even if the saved variable couldn't be loaded
 	viewer_peak = "Inconnu"
 	played_games_string = "Inconnu"
 
