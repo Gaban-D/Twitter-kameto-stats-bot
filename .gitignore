@@ -2,6 +2,7 @@
 .bak
 .dat
 .dir
+test.py
 
 #Github python .gitignore template
 # Byte-compiled / optimized / DLL files

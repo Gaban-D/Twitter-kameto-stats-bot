@@ -19,7 +19,8 @@ def get_most_viewed_clip(broadcaster_id=streamer_id, start_date=date_to_check, e
 	# In case no clips were found
 	try:
 		return twitch_api.get_clips(broadcaster_id=broadcaster_id, first=1, started_at=start_date, ended_at=end_date)['data'][0]['url']
-	except:
+
+	except IndexError:
 		return "Aucun miskine"
 
 
@@ -36,23 +37,27 @@ for video in videos:
 
 		try:
 			streams.streams_durations_array.append(datetime.strptime(video["duration"], '%Hh%Mm%Ss'))
+
 		except ValueError:
 			try:
 				streams.streams_durations_array.append(datetime.strptime(video["duration"], '%Mm%Ss'))
+
 			except ValueError:
 				streams.streams_durations_array.append(datetime.strptime(video["duration"], '%Ss'))
 
 try:
 	# Load the saved variables
 	saved_variables = shelve.open("saved_variables")
-	viewer_peak = saved_variables["{date} viewer peak".format(date=date_to_check.date())]
+	viewer_peak = format(saved_variables["{date} viewer peak".format(date=date_to_check.date())], ',d')
 	played_games_string = ", ".join(saved_variables["{date} games played".format(date=date_to_check.date())])
 	saved_variables.close()
-except:
-	print("Error: Couldn't get the saved variables")
+
+except KeyError:
+	print("{date} Error: Couldn't get the saved variables".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 	# HACK dirty way to ensure the script will be executed even if the saved variable couldn't be loaded correctly
 	viewer_peak = "Inconnu"
 	played_games_string = "Inconnu"
+
 
 if streams.view_count == 0:
 	print("No video were found")
@@ -70,9 +75,9 @@ else:
 		.format(
 			date=date_to_check.strftime('%d/%m/%y'),
 			stream_duration=streams.calculate_total_streams_duration(),
-			viewer_peak=format(viewer_peak, ',d'),
+			viewer_peak=viewer_peak,
 			view_count=format(streams.view_count, ',d'),
 			played_games=played_games_string,
 			clip_url=get_most_viewed_clip()))
 
-	print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + ": Tweet successfully posted at " + tweet.entities['urls'][0]['expanded_url'])
+print("{date} Tweet successfully posted at " + tweet.entities['urls'][0]['expanded_url'].format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
