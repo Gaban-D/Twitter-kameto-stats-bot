@@ -1,6 +1,6 @@
 # About
 
-This program is used to fetch data from twitch api and post a daily tweet about those data
+This program is used to fetch data from a twitch channel with twitch api and post a daily tweet about those data
 
 ## Installation
 
