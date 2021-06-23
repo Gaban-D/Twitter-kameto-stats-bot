@@ -1,9 +1,14 @@
 import tweepy
+import sys
 import os
+import locale
 from dotenv import load_dotenv
+from pathlib import Path
 from twitchAPI.twitch import Twitch
 
 load_dotenv()
+locale.setlocale(locale.LC_ALL, 'French')
+save_path = Path(sys.argv[0]).parent / Path('saved_variables')
 
 
 def get_twitter_api():

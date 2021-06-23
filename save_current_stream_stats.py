@@ -1,11 +1,11 @@
-from dotenv import load_dotenv
-from config import get_twitch_api
-from datetime import datetime
 import shelve
+from dotenv import load_dotenv
+from config import get_twitch_api, save_path
+from datetime import datetime
 
 load_dotenv()
 twitchAPI = get_twitch_api()
-saved_variables = shelve.open("saved_variables")
+saved_variables = shelve.open(fr'{save_path}')
 date = datetime.now().date()
 live = None
 

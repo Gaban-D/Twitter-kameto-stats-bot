@@ -1,6 +1,6 @@
 from config import get_twitter_api
 from datetime import datetime, timedelta
-from config import get_twitch_api
+from config import get_twitch_api, save_path
 from stats import Stats
 import shelve
 
@@ -47,7 +47,7 @@ for video in videos:
 
 try:
 	# Load the saved variables
-	saved_variables = shelve.open("saved_variables")
+	saved_variables = shelve.open(fr'{save_path}')
 	viewer_peak = format(saved_variables["{date} viewer peak".format(date=date_to_check.date())], ',d')
 	played_games_string = ", ".join(saved_variables["{date} games played".format(date=date_to_check.date())])
 	saved_variables.close()
@@ -66,13 +66,13 @@ if streams.view_count == 0:
 else:
 	tweet = twitter_api.update_status(
 		'Stats de Kameto le {date}:'
-		'\n⏰ Durée totale des streams : {stream_duration}'
+		'\n⏰ Durée de stream : {stream_duration}'
 		'\n🔥 Peak de viewers : {viewer_peak}'
 		'\n👀 Total de vues : {view_count}'
 		'\n🕹️ Jeux streamés : {played_games}'
-		'\n🎬 Clip le plus populaire du jour : {clip_url}'
+		'\n🎬 Top clip du jour : {clip_url}'
 		.format(
-			date=date_to_check.strftime('%d/%m/%y'),
+			date=date_to_check.strftime('%A %d %B %Y'),
 			stream_duration=streams.calculate_total_streams_duration(),
 			viewer_peak=viewer_peak,
 			view_count=format(streams.view_count, ',d'),
