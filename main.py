@@ -70,9 +70,9 @@ else:
 		'\n🔥 Peak de viewers : {viewer_peak}'
 		'\n👀 Total de vues : {view_count}'
 		'\n🕹️ Jeux streamés : {played_games}'
-		'\n🎬 Top clip du jour : {clip_url}'
+		'\n🎬 Top clip du jour :{clip_url}'
 		.format(
-			date=date_to_check.strftime('%A %d %B %Y'),
+			date=date_to_check.strftime('%d/%m/%y'),
 			stream_duration=streams.calculate_total_streams_duration(),
 			viewer_peak=viewer_peak,
 			view_count=format(streams.view_count, ',d'),
