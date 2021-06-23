@@ -1,8 +1,9 @@
+import textwrap
+import shelve
 from config import get_twitter_api
 from datetime import datetime, timedelta
 from config import get_twitch_api, save_path
 from stats import Stats
-import shelve
 
 twitter_api = get_twitter_api()
 twitch_api = get_twitch_api()
@@ -50,13 +51,14 @@ try:
 	saved_variables = shelve.open(fr'{save_path}')
 	viewer_peak = format(saved_variables["{date} viewer peak".format(date=date_to_check.date())], ',d')
 	played_games_string = ", ".join(saved_variables["{date} games played".format(date=date_to_check.date())])
+	shortened_games_list_string = textwrap.shorten(played_games_string, width=83, placeholder="...")
 	saved_variables.close()
 
 except KeyError:
 	print("{date} - Error: Couldn't get the saved variables".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 	# HACK dirty way to ensure the script will be executed even if the saved variable couldn't be loaded
 	viewer_peak = "Inconnu"
-	played_games_string = "Inconnu"
+	shortened_games_list_string = "Inconnu"
 
 
 if streams.view_count == 0:
@@ -76,7 +78,7 @@ else:
 			stream_duration=streams.calculate_total_streams_duration(),
 			viewer_peak=viewer_peak,
 			view_count=format(streams.view_count, ',d'),
-			played_games=played_games_string,
+			played_games=shortened_games_list_string,
 			clip_url=get_most_viewed_clip()))
 
 print("{date} Tweet successfully posted at {url}".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S"), url=tweet.entities['urls'][0]['expanded_url']))
