@@ -60,9 +60,8 @@ except KeyError:
 
 
 if streams.view_count == 0:
-	print("No video were found")
+	print("{date} - No videos were found".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 	tweet = twitter_api.update_status('Le {date} Kameto était en day off'.format(date=date_to_check.strftime('%d/%m/%Y')))
-	quit()
 
 else:
 	tweet = twitter_api.update_status(
@@ -80,4 +79,4 @@ else:
 			played_games=played_games_string,
 			clip_url=get_most_viewed_clip()))
 
-print("{date} Tweet successfully posted at " + tweet.entities['urls'][0]['expanded_url'].format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+print("{date} Tweet successfully posted at {url}".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S"), url=tweet.entities['urls'][0]['expanded_url']))
