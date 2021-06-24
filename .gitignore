@@ -1,8 +1,6 @@
 .idea/
-.bak
-.dat
-.dir
 test.py
+saved_variables.*
 
 #Github python .gitignore template
 # Byte-compiled / optimized / DLL files
@@ -143,6 +141,3 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-saved_variables.bak
-saved_variables.dat
-saved_variables.dir
