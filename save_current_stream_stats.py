@@ -11,7 +11,7 @@ date = datetime.now().date()
 live = None
 
 try:
-    live = twitchAPI.get_streams(user_login=['mistermv'], first=1)['data'][0]
+    live = twitchAPI.get_streams(user_login=['kamet0'], first=1)['data'][0]
 except IndexError:
     print("{date} - Kameto is not in live \n".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
     saved_variables.close()
