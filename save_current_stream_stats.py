@@ -17,6 +17,8 @@ except IndexError:
     saved_variables.close()
     quit()
 
+shortened_game_name = textwrap.shorten(live['game_name'], width=25, placeholder="...")
+
 # Check the current viewer count and save it if its the highest registered
 try:
     if live['viewer_count'] > saved_variables["{date} viewer peak".format(date=date)]:
@@ -27,15 +29,13 @@ except KeyError:
 
 # Check which game is played atm and add it to the games played list if not already done
 try:
-    shortened_game_name = textwrap.shorten(live['game_name'], width=25, placeholder="...")
-    print(shortened_game_name)
     if not(shortened_game_name in saved_variables["{date} games played".format(date=date)]):
         saved_variables["{date} games played".format(date=date)] += [shortened_game_name]
 
 except KeyError:
     # print('Games played key does not exist')
     saved_variables["{date} games played".format(date=date)] = []
-    saved_variables["{date} games played".format(date=date)] += [live['game_name']]
+    saved_variables["{date} games played".format(date=date)] += [shortened_game_name]
 
 # Used for crontab logging
 print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " - Current viewers " + str(live['viewer_count']))
