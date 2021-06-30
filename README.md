@@ -2,8 +2,6 @@
 
 This program is used to fetch data from a twitch channel with twitch api and post a daily tweet about those data
 
-⚠⚠⚠WARNING: Using this may get your twitter account shadowbanned, i'm trying to fix this
-
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the bot and his requirements.
