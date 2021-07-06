@@ -4,6 +4,8 @@ from config import get_twitter_api
 from datetime import datetime, timedelta
 from config import get_twitch_api, save_path
 from stats import Stats
+from dateutil import tz
+
 
 twitter_api = get_twitter_api()
 twitch_api = get_twitch_api()
@@ -31,6 +33,10 @@ streams = Stats()
 # calculate the total view count and store streams durations in a list
 for video in videos:
 	video_date = datetime.strptime(video["created_at"], '%Y-%m-%dT%H:%M:%SZ')
+
+	# Convert video date from twitch timezone to local timezone
+	video_date = video_date.replace(tzinfo=tz.gettz('UTC'))
+	video_date = video_date.astimezone(tz.tzlocal())
 
 	# check if the video was created yesterday
 	if video_date.date() == date_to_check.date():
