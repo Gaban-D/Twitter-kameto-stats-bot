@@ -9,7 +9,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the bot
 ```bash
 git clone https://github.com/Gabann/Twitch-stats-to-twitter-bot.git
 cd Twitch-stats-to-twitter-bot
-pip install requirements.txt 
+pip install -r requirements.txt
 ```
 
 ## Usage
