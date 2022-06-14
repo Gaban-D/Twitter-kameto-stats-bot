@@ -32,7 +32,7 @@ python3 get_access_token.py
 ```
 
 <br/><br/>
-After setting your api keys you can post tweets with main.py (It is reccomended to automate this task to run once a day)
+After setting your api keys you can post tweets with main.py (It is reccomended to automate this task)
 
 At the time of writing twitch api doesn't support viewer peak and games played, if you want the bot to tweet about those datas you'll have to execute save_current_stream_stats.py every ~5 min approx
 
