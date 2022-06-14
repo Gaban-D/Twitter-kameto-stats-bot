@@ -10,6 +10,9 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the bot
 git clone https://github.com/Gabann/Twitch-stats-to-twitter-bot.git
 cd Twitch-stats-to-twitter-bot
 pip install -r requirements.txt
+
+sudo locale-gen fr_FR
+sudo locale-gen fr_FR.UTF-8
 ```
 
 ## Usage
