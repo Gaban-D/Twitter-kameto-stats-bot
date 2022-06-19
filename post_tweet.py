@@ -2,7 +2,7 @@ import textwrap
 import shelve
 from config import get_twitter_api
 from datetime import datetime, timedelta
-from config import get_twitch_api, save_path
+from config import get_twitch_api, save_path, twitch_channel
 from stats import Stats
 from dateutil import tz
 
@@ -11,7 +11,7 @@ twitter_api = get_twitter_api()
 twitch_api = get_twitch_api()
 
 date_to_check = datetime.now() - timedelta(days=1)
-streamer_id = twitch_api.get_users(logins=['kamet0'])['data'][0]['id']
+streamer_id = twitch_api.get_users(logins=[twitch_channel])['data'][0]['id']
 
 
 def get_most_viewed_clip(broadcaster_id=streamer_id, start_date=date_to_check, end_date=date_to_check):
@@ -69,22 +69,23 @@ except KeyError:
 
 if streams.view_count == 0:
 	print("{date} - No videos were found".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
-	tweet = twitter_api.update_status('Le {date} Kameto était en day off'.format(date=date_to_check.strftime('%d/%m/%Y')))
+	tweet = twitter_api.update_status('{channel_name} n\'a pas stream le {date}'.format(channel_name=twitch_channel, date=date_to_check.strftime('%d/%m/%Y')))
 
 else:
 	tweet = twitter_api.update_status(
-		'Stats de Kameto le {date}:'
+		'Stats de {channel_name} le {date}:'
 		'\n⏰ Durée de stream : {stream_duration}'
 		'\n🔥 Peak de viewers : {viewer_peak}'
 		'\n👀 Total de vues : {view_count}'
-		'\n🕹️ Jeux streamés : {played_games}'
 		'\n🎬 Top clip du jour :{clip_url}'
+		'\n🕹️ Jeux streamés : {played_games}'
 		.format(
+			channel_name = twitch_channel,
 			date=date_to_check.strftime('%d/%m/%y'),
 			stream_duration=streams.calculate_total_streams_duration(),
 			viewer_peak=viewer_peak,
 			view_count=format(streams.view_count, ',d'),
-			played_games=shortened_games_list_string,
-			clip_url=get_most_viewed_clip()))
+			clip_url=get_most_viewed_clip(),
+			played_games=shortened_games_list_string)[:280])
 
 print("{date} Tweet successfully posted at {url}".format(date=datetime.now().strftime("%d/%m/%Y %H:%M:%S"), url=tweet.entities['urls'][0]['expanded_url']))

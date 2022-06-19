@@ -10,6 +10,7 @@ load_dotenv()
 locale.setlocale(locale.LC_ALL, 'French')
 save_path = Path(sys.argv[0]).parent / Path('saved_variables')
 
+twitch_channel = 'THE_TWITCH_CHANNEL_YOU_WANT_TO_TRACK'
 
 def get_twitter_api():
     api_consumer_key = os.environ.get("twitter_consumer_public")
