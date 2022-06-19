@@ -9,7 +9,10 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the bot
 ```bash
 git clone https://github.com/Gabann/Twitch-stats-to-twitter-bot.git
 cd Twitch-stats-to-twitter-bot
-pip install requirements.txt 
+pip install -r requirements.txt
+
+sudo locale-gen fr_FR
+sudo locale-gen fr_FR.UTF-8
 ```
 
 ## Usage
@@ -29,7 +32,7 @@ python3 get_access_token.py
 ```
 
 <br/><br/>
-After setting your api keys you can post tweets with main.py (It is reccomended to automate this task to run once a day)
+After setting your api keys you can post tweets with main.py (It is reccomended to automate this task)
 
 At the time of writing twitch api doesn't support viewer peak and games played, if you want the bot to tweet about those datas you'll have to execute save_current_stream_stats.py every ~5 min approx
 
