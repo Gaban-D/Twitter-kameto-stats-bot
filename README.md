@@ -7,7 +7,7 @@ This program is used to fetch data from a twitch channel with twitch api and pos
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the bot and his requirements.
 
 ```bash
-git clone https://github.com/Gabann/Twitch-stats-to-twitter-bot.git
+git clone https://github.com/Gabann/Twitter-bot-twitch-stats.git
 cd Twitch-stats-to-twitter-bot
 pip install -r requirements.txt
 
